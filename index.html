@@ -1,0 +1,32 @@
+<!DOCTYPE html><html lang="fa">
+<head>
+  <meta charset="UTF-8">
+  <title>ورود با دوربین</title>
+  <style>
+    body { font-family: sans-serif; text-align: center; background: #f0f0f0; padding: 20px; }
+    video { border-radius: 12px; }
+  </style>
+</head>
+<body>
+  <h2>ورود با نمایش چهره</h2>
+  <video id="video" width="320" height="240" autoplay muted playsinline></video>
+  <p id="status">در حال فعال‌سازی دوربین...</p>  <script>
+    const video = document.getElementById('video');
+    const statusEl = document.getElementById('status');
+
+    function startVideo() {
+      navigator.mediaDevices.getUserMedia({ video: true })
+        .then(stream => {
+          video.srcObject = stream;
+          video.play();
+          statusEl.textContent = 'دوربین فعال شد. چهره شما نمایش داده می‌شود.';
+        })
+        .catch(err => {
+          console.error('Camera error:', err);
+          statusEl.textContent = 'خطا در دسترسی به دوربین. لطفاً اجازه دسترسی را فعال کنید.';
+        });
+    }
+
+    startVideo();
+  </script></body>
+</html>
